@@ -1,11 +1,31 @@
 'use strict'
+
+
+var mongoose = require('mongoose');
+
 //importa fichero app.js
 var app = require('./app');//configuracion
 
 var port=process.env.PORT || 3680;
 
-app.listen(port, function(){
-  //comilla invertar alt+96
-  //sirve para enviar parametros
-  console.log(`API REST FAVORITOS funcionando en http://localhost:${port}`);
+//conexion a bdd con una funcion
+mongoose.Promise = global.Promise;
+
+mongoose.connect('mongodb://localhost:37017/prueba20',
+{useMongoClient:true, options:{promiseLibrary:mongoose.Promise}}
+, (err, res)=>{
+	if(err){
+		throw err;
+	}else{
+		console.log('conexion mongo ok');
+		app.listen(port, function(){
+
+ console.log(`API REST FAVORITOS funcionando en http://localhost:${port}`);
 });
+
+}
+});
+
+
+
+

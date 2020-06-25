@@ -1,5 +1,6 @@
 'use strict' //para nuevas funcionalidad de js
 
+
 var express=require('express');
 var FavoritoController = require('../controllers/favorito');
 //definimos rutas desde app.js
