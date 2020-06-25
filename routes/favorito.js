@@ -10,5 +10,6 @@ var api = express.Router();
 // vamos a llamar a un controller
 api.get('/prueba/:nombre?', FavoritoController.prueba);
 
+
 //exportar mi api
 module.exports = api;

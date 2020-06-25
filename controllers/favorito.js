@@ -14,9 +14,15 @@ function prueba(req, res){
 			datos: [2, 5 ,4 ,6],
 	message: "hola mundo nodejs and express "
 	+ nombre});
-}
+};
+
+//funtion index(req, res) {
+  //  res.status(200).send({"Hello from the Node JS RESTful side!"});
+//};
+
 
 module.exports = {
 
 	prueba
+
 }

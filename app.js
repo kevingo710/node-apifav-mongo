@@ -1,28 +1,18 @@
-//configuracion express
-
 'use strict'
-
-//modulo express
-var express = require('express');
-
 //body-parser
-var bodyParser = require('body-parser');
+var express=require('express');
+var bodyParser= require('body-parser');
 
-//llamar al paquete express
-var app = express();
+var app=express();
 
+var api = require('./routes/favorito');//carga todas las rutas
 
-
-//routes
-var api = require('./routes/favorito');
 
 app.use(bodyParser.urlencoded({extended:false}));
-app.use(bodyParser.json());
+app.use(bodyParser.json());//devuelve como objeto de js utilizable
+//toda la ruta comienza con api
+app.use('/api',api); //carga todas las funciones y rutas
 
 
-//carga todas las funciones y rutas
-app.use('/api', api);
-
-//convierte al fichero en una clase para exportarlo a cualquier
-//modulo
+//para poder importar cada fichero es un modulo
 module.exports = app;
