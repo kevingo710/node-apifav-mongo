@@ -8,12 +8,12 @@ var Schema = mongoose.Schema;
 
 //objeto
 var FavoritoSchema= Schema({
-	title:String;
-	description: String;
+	title:String,
+	description: String,
 	url:String
-}
+},
 {collection: "favoritos"}
 );
 
 //generar el modelo
-moduel.exports = mongoose.model('Favorito', FavoritoSchema)
+module.exports = mongoose.model('Favorito', FavoritoSchema)

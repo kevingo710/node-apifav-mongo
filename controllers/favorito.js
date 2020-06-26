@@ -1,6 +1,9 @@
 //ruta de prueba
 'use strict'
 
+//variables
+var Favorito = require('../models/favorito');
+
 function prueba(req, res){
 	if(req.params.nombre){
 		var nombre = req.params.nombre;
@@ -19,10 +22,27 @@ function prueba(req, res){
 //funtion index(req, res) {
   //  res.status(200).send({"Hello from the Node JS RESTful side!"});
 //};
+function getFavoritosTodos(req, res){
+
+	Favorito.find({ }).exec ((err, favoritos)=>{
+		if(err){
+			res.status(500).send({message:'error en find'});
+		}else{
+			if(!favoritos){
+				res.status(404).send({message:'no existen datos'});
+			}else{
+				res.status(200).send({favoritos});
+			}
+		}
+
+	});
+}
+
 
 
 module.exports = {
 
-	prueba
+	prueba,
+	getFavoritosTodos
 
 }

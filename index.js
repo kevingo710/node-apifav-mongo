@@ -12,7 +12,7 @@ var port=process.env.PORT || 3680;
 mongoose.Promise = global.Promise;
 
 mongoose.connect('mongodb://localhost:37017/prueba20',
-{useMongoClient:true, options:{promiseLibrary:mongoose.Promise}}
+{useNewUrlParser: true, options:{promiseLibrary:mongoose.Promise}}
 , (err, res)=>{
 	if(err){
 		throw err;
