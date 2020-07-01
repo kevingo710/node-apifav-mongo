@@ -39,11 +39,92 @@ Favorito.find({ }).exec((err,favoritos)=>{
 	});
 }
 
+//obtener un dato de la coleccion favorito a traves de un parametro
+function getFavorito(req,res){
+	var favoritoId = req.params.id; //ddesde http
 
+	Favorito.findById (favoritoId, function(err,favorito){
+		if(err){
+			res.status(500).send({message:'error al buscar'});
+		}else{
+			if(!favorito){
+				res.status(400).send({message:'no existe dato'});
+			}else{
+				res.status(200).send({favorito});
+			}
+		}
+
+	});
+
+}
+//guardar dato desde el api
+function saveFavorito(req,res){
+	var favorito = new Favorito();
+	var params = req.body; //recogemos datos desde post
+	favorito.title = params.title;
+	favorito.description = params.description;
+	favorito.url = params.url;
+
+	favorito.save((err, favoritoStored)=>{
+		if(err){
+			res.status(500).send({message:'error al guardar'});
+		}else{
+			res.status(200).send({favorito:favoritoStored});
+		}
+
+	});
+
+}
+//actualizar
+function updateFavorito(req,res){
+	var favoritoId = req.params.id;
+	var update = req.body;
+	console.log(update);
+
+	Favorito.findByIdandUpdate(favoritoId, update, 
+		(err,favoritoUpdate)=>{
+			if(err){
+				res.status(500).send({'error al actualizar'});
+			}else{
+				res.status(200).send({favorito:favoritoUpdate});
+			}
+
+		});
+}
+
+//borrar
+function deleteFavorito(req,res){
+	var favoritoId = req.params.id;
+
+	Favorito.findById(favoritoId, function(err,favorito){
+		if(err){
+			res.status(500).send({message:'error al eliminar'});
+		}
+		if(!favorito){
+			res.status(404).send({message:'no existe dato'});
+		}else{
+			favorito.remove(err =>{
+				if(err){
+					res.status(500).send({message:'error al eliminar'});
+				}else{
+					res.status(200).send({message:'dato borrado ok'});
+				}
+
+			});
+		}
+	});
+
+
+}
 
 module.exports = {
 
 	prueba,
-	getFavoritosTodos
+	getFavorito,
+	getFavoritosTodos,
+	saveFavorito,
+	updateFavorito,
+	deleteFavorito
+
 
 }
