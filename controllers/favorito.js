@@ -76,20 +76,20 @@ function saveFavorito(req,res){
 
 }
 //actualizar
-function updateFavorito(req,res){
+function updateFavorito(req, res){
 	var favoritoId = req.params.id;
 	var update = req.body;
 	console.log(update);
 
-	Favorito.findByIdandUpdate(favoritoId, update, 
-		(err,favoritoUpdate)=>{
-			if(err){
-				res.status(500).send({'error al actualizar'});
-			}else{
-				res.status(200).send({favorito:favoritoUpdate});
-			}
-
-		});
+	Favorito.findByIdAndUpdate(favoritoId,update,(err,favoritoUpdate)=>{
+		if(err){
+			res.status(500).send({message: 'error al actualizar los datos'});
+		}else{
+			res.status(200).send({favorito: favoritoUpdate});
+		}
+		
+	});
+	
 }
 
 //borrar
