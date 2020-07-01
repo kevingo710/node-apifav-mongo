@@ -23,18 +23,19 @@ function prueba(req, res){
   //  res.status(200).send({"Hello from the Node JS RESTful side!"});
 //};
 function getFavoritosTodos(req, res){
-
-	Favorito.find({ }).exec ((err, favoritos)=>{
+Favorito.find({ }).exec((err,favoritos)=>{
 		if(err){
-			res.status(500).send({message:'error en find'});
-		}else{
+			res.status(500).send({message: 'error al deveolver los datos'});
+		}else {
 			if(!favoritos){
-				res.status(404).send({message:'no existen datos'});
+			res.status(404).send({message: 'no existen datos'});
 			}else{
 				res.status(200).send({favoritos});
 			}
+			
 		}
 
+		
 	});
 }
 

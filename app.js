@@ -14,5 +14,7 @@ app.use(bodyParser.json());//devuelve como objeto de js utilizable
 app.use('/api',api); //carga todas las funciones y rutas
 
 
+
+
 //para poder importar cada fichero es un modulo
 module.exports = app;
