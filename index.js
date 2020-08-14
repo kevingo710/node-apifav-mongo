@@ -11,7 +11,7 @@ var port=process.env.PORT || 3678;
 //conexion a bdd con una funcion
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://localhost:37017/prueba20',
+mongoose.connect('mongodb://localhost:27017/prueba20',
 {useNewUrlParser:true, useUnifiedTopology: true }  
 //ptions:{promiseLibrary:mongoose.Promise}}
 , (err, res)=>{

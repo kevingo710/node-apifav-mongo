@@ -23,7 +23,7 @@ function prueba(req, res){
   //  res.status(200).send({"Hello from the Node JS RESTful side!"});
 //};
 function getFavoritosTodos(req, res){
-Favorito.find({ }).exec((err,favoritos)=>{
+Favorito.find( {preferencias: {$in: ['Aquagym','Natación','Tennis','Spinning']}} ).exec((err,favoritos)=>{
 		if(err){
 			res.status(500).send({message: 'error al deveolver los datos'});
 		}else {
@@ -39,24 +39,61 @@ Favorito.find({ }).exec((err,favoritos)=>{
 	});
 }
 
-//obtener un dato de la coleccion favorito a traves de un parametro
-function getFavorito(req,res){
-	var favoritoId = req.params.id; //ddesde http
 
-	Favorito.findById (favoritoId, function(err,favorito){
-		if(err){
-			res.status(500).send({message:'error al buscar'});
-		}else{
-			if(!favorito){
-				res.status(400).send({message:'no existe dato'});
-			}else{
-				res.status(200).send({favorito});
+function getFavoritosIds(req, res){
+	Favorito.find({"idCliente":{$gt:100,$lt:150}}).exec((err,favoritos)=>{
+			if(err){
+				res.status(500).send({message: 'error al deveolver los datos'});
+			}else {
+				if(!favoritos){
+				res.status(404).send({message: 'no existen datos'});
+				}else{
+					res.status(200).send({favoritos});
+				}
+				
 			}
-		}
+	
+			
+		});
+	}
 
-	});
+function getFavoritosUno(req, res){
+	let unoid = Number(req.params.unoid);
+	Favorito.find({"idCliente":unoid}).exec((err,favoritos)=>{
+			if(err){
+				res.status(500).send({message: 'error al deveolver los datos'});
+			}else {
+				if(!favoritos){
+				res.status(404).send({message: 'no existen datos'});
+				}else{
+					res.status(200).send({favoritos});
+				}
+				
+			}
+	
+			
+		});
+	}
 
-}
+
+// //obtener un dato de la coleccion favorito a traves de un parametro
+// function getFavorito(req,res){
+// 	var favoritoId = req.params.id; //ddesde http
+
+// 	Favorito.findById (favoritoId, function(err,favorito){
+// 		if(err){
+// 			res.status(500).send({message:'error al buscar'});
+// 		}else{
+// 			if(!favorito){
+// 				res.status(400).send({message:'no existe dato'});
+// 			}else{
+// 				res.status(200).send({favorito});
+// 			}
+// 		}
+
+// 	});
+
+// }
 //guardar dato desde el api
 function saveFavorito(req,res){
 	var favorito = new Favorito();
@@ -120,11 +157,13 @@ function deleteFavorito(req,res){
 module.exports = {
 
 	prueba,
-	getFavorito,
+	// getFavorito,
 	getFavoritosTodos,
 	saveFavorito,
 	updateFavorito,
-	deleteFavorito
+	deleteFavorito,
+	getFavoritosIds,
+	getFavoritosUno
 
 
 }

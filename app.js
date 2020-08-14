@@ -7,6 +7,22 @@ var app=express();
 
 var api = require('./routes/favorito');//carga todas las rutas
 
+app.use((req, res, next) => {
+
+    res.setHeader("Content-Security-Policy", "script-src 'self' https://apis.google.com");
+    res.header('Access-Control-Allow-Origin', '*');
+    // authorized headers for preflight requests
+    // https://developer.mozilla.org/en-US/docs/Glossary/preflight_request
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+    next();
+    app.options('*', (req, res) => {
+        // allowed XHR methods  
+        res.header('Access-Control-Allow-Methods', 'GET, PATCH, PUT, POST, DELETE, OPTIONS');
+        res.send();
+    });
+});
+
+
 
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());//devuelve como objeto de js utilizable

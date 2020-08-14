@@ -12,7 +12,7 @@ var FavoritoSchema= Schema({
 	description: String,
 	url:String
 },
-{collection: "favoritos"}
+{collection: "gimnasio"}
 );
 
 //generar el modelo
